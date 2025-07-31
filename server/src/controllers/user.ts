@@ -26,7 +26,7 @@ export const registerUser = async (req: Request, res: Response) => {
       httpOnly: true,
       secure: config.NODE_ENV === "production",
     })
-    .json({ message: "User registered successfully" });
+    .json({ message: "User registered successfully", user });
 };
 
 export const loginUser = async (req: Request, res: Response) => {
@@ -45,7 +45,7 @@ export const loginUser = async (req: Request, res: Response) => {
   const isPasswordValid = await user.comparePassword(password);
 
   if (!isPasswordValid) {
-    return res.status(401).json({ message: "Invalid credentials" });
+    return res.status(401).json({ message: "Invalid credentials", user });
   }
 
   const token = user.generateJWT();
